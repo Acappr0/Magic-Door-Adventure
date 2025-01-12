@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Door Adventure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .door {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #ddd;
+            transition: background 0.3s;
+        }
+        .door:hover {
+            background: #bbb;
+        }
+        .story {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Magic Door Adventure</h1>
+        <?php
+        $stage = isset($_GET['stage']) ? $_GET['stage'] : 1;
+
+        // Define the story stages and choices
+        $story = [
+            1 => [
+                'text' => "You find yourself in a mysterious hallway with three magical doors. Which one will you choose?",
+                'choices' => [
+                    'Door 1' => 2,
+                    'Door 2' => 3,
+                    'Door 3' => 4
+                ]
+            ],
+            2 => [
+                'text' => "You enter a room filled with treasures! A voice says, 'Choose wisely.' Do you take the gold or explore further?",
+                'choices' => [
+                    'Take Gold' => 5,
+                    'Explore Further' => 6
+                ]
+            ],
+            3 => [
+                'text' => "You step into a dark forest. A strange creature offers you a riddle. Do you solve it or run away?",
+                'choices' => [
+                    'Solve Riddle' => 7,
+                    'Run Away' => 8
+                ]
+            ],
+            4 => [
+                'text' => "You find a room with a sleeping dragon. Do you sneak past it or try to wake it?",
+                'choices' => [
+                    'Sneak Past' => 9,
+                    'Wake Dragon' => 10
+                ]
+            ],
+            5 => ['text' => "The gold turns into dust! The adventure ends here."],
+            6 => ['text' => "You find a hidden passage leading to more adventures!"],
+            7 => ['text' => "The creature rewards you with a magical artifact!"],
+            8 => ['text' => "You safely escape back to the hallway."],
+            9 => ['text' => "You successfully sneak past and find an enchanted sword."],
+            10 => ['text' => "The dragon wakes up and flies away, leaving behind a treasure chest."],
+        ];
+
+        // Display the story and choices
+        if (isset($story[$stage])) {
+            echo "<p class='story'>{$story[$stage]['text']}</p>";
+            if (isset($story[$stage]['choices'])) {
+                foreach ($story[$stage]['choices'] as $label => $nextStage) {
+                    echo "<a class='door' href='?stage=$nextStage'>$label</a>";
+                }
+            }
+        } else {
+            echo "<p class='story'>The adventure has ended. <a href='?stage=1'>Start Over</a></p>";
+        }
+        ?>
+    </div>
+</body>
+</html>
